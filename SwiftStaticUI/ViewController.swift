@@ -12,14 +12,14 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configMainScrollView()
         
     }
     
     func configMainScrollView() {
         let mainScrollView = UIScrollView()
-        mainScrollView.contentSize = CGSize(width: view.frame.size.width, height: 1000)
+        mainScrollView.contentSize = CGSize(width: 0, height: 1000)
+        
         mainScrollView.backgroundColor = UIColor.lightGray
         mainScrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mainScrollView)
@@ -31,13 +31,35 @@ class ViewController: UIViewController {
         
         let headeImageView = UIImageView()
         headeImageView.translatesAutoresizingMaskIntoConstraints = false
-        headeImageView.image = UIImage.init(named: "head")
         mainScrollView.addSubview(headeImageView)
         
         headeImageView.topAnchor.constraint(equalTo: mainScrollView.topAnchor).isActive = true
         headeImageView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor).isActive = true
-        headeImageView.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor).isActive = true
+        headeImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         headeImageView.heightAnchor.constraint(equalTo: mainScrollView.heightAnchor, multiplier: 0.5).isActive = true
+        headeImageView.image = UIImage.init(named: "head")
+        
+        let descriptionView = UIView()
+        descriptionView.backgroundColor = UIColor.yellow
+        descriptionView.translatesAutoresizingMaskIntoConstraints = false
+        mainScrollView.addSubview(descriptionView)
+        
+        descriptionView.topAnchor.constraint(equalTo: headeImageView.bottomAnchor, constant: 20).isActive = true
+        descriptionView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20).isActive = true
+        descriptionView.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor, multiplier: 0.5).isActive = true
+        descriptionView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        
+        let titleLabel = UILabel()
+        titleLabel.text = "h and I"
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 15)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.backgroundColor = UIColor.red
+        descriptionView.addSubview(titleLabel)
+        
+        titleLabel.topAnchor.constraint(equalTo: descriptionView.topAnchor).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: descriptionView.leadingAnchor).isActive = true
+        titleLabel.widthAnchor.constraint(equalTo: descriptionView.widthAnchor, multiplier: 0.5).isActive = true
+        titleLabel.heightAnchor.constraint(equalTo: descriptionView.heightAnchor, multiplier: 0.5).isActive = true
         
     }
 
