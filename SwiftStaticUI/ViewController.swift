@@ -9,9 +9,6 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
-    var mainScrollView: UIScrollView!
-    var headeImageView: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,8 +18,9 @@ class ViewController: UIViewController {
     }
     
     func configMainScrollView() {
-        mainScrollView = UIScrollView()
-        mainScrollView.backgroundColor = UIColor.gray
+        let mainScrollView = UIScrollView()
+        mainScrollView.contentSize = CGSize(width: view.frame.size.width, height: 1000)
+        mainScrollView.backgroundColor = UIColor.lightGray
         mainScrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mainScrollView)
         
@@ -30,6 +28,16 @@ class ViewController: UIViewController {
         mainScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         mainScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         mainScrollView.heightAnchor.constraint(equalToConstant: 400).isActive = true
+        
+        let headeImageView = UIImageView()
+        headeImageView.translatesAutoresizingMaskIntoConstraints = false
+        headeImageView.image = UIImage.init(named: "head")
+        mainScrollView.addSubview(headeImageView)
+        
+        headeImageView.topAnchor.constraint(equalTo: mainScrollView.topAnchor).isActive = true
+        headeImageView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor).isActive = true
+        headeImageView.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor).isActive = true
+        headeImageView.heightAnchor.constraint(equalTo: mainScrollView.heightAnchor, multiplier: 0.5).isActive = true
         
     }
 
