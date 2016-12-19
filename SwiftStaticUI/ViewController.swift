@@ -47,7 +47,7 @@ class ViewController: UIViewController {
         descriptionView.topAnchor.constraint(equalTo: headeImageView.bottomAnchor, constant: 20).isActive = true
         descriptionView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20).isActive = true
         descriptionView.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor, multiplier: 0.5).isActive = true
-        descriptionView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        descriptionView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         let titleLabel = UILabel()
         titleLabel.text = "h and I"
@@ -61,6 +61,27 @@ class ViewController: UIViewController {
         titleLabel.widthAnchor.constraint(equalTo: descriptionView.widthAnchor, multiplier: 0.5).isActive = true
         titleLabel.heightAnchor.constraint(equalTo: descriptionView.heightAnchor, multiplier: 0.5).isActive = true
         
+        let addressLabel = UILabel()
+        addressLabel.text = "17,MITCHAM, VIC, 3132, AU"
+        addressLabel.font = UIFont.systemFont(ofSize: 12)
+        addressLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        descriptionView.addSubview(addressLabel)
+        addressLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
+        addressLabel.leadingAnchor.constraint(equalTo: descriptionView.leadingAnchor).isActive = true
+        addressLabel.trailingAnchor.constraint(equalTo: descriptionView.trailingAnchor).isActive = true
+        addressLabel.heightAnchor.constraint(equalTo: descriptionView.heightAnchor, multiplier: 0.25).isActive = true
+        
+        let availabelLabel = UILabel()
+        availabelLabel.text = "Properties Available: 1/1"
+        availabelLabel.font = UIFont.systemFont(ofSize: 12)
+        availabelLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        descriptionView.addSubview(availabelLabel)
+        availabelLabel.topAnchor.constraint(equalTo: addressLabel.bottomAnchor).isActive = true
+        availabelLabel.leadingAnchor.constraint(equalTo: descriptionView.leadingAnchor).isActive = true
+        availabelLabel.trailingAnchor.constraint(equalTo: descriptionView.trailingAnchor).isActive = true
+        availabelLabel.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor).isActive = true
     }
 
     override func didReceiveMemoryWarning() {
