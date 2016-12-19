@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import MapKit
+import CoreLocation
 
 class ViewController: UIViewController {
-
+    
+    let locationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configMainScrollView()
@@ -99,7 +103,43 @@ class ViewController: UIViewController {
         }
         viewButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
         viewButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        
+        
+        let mapView = MKMapView()
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(mapView)
+        
+        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {
+            mapView.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: 20).isActive = true
+        } else {
+            mapView.topAnchor.constraint(equalTo: viewButton.bottomAnchor, constant: 20).isActive = true
+        }
+        mapView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20).isActive = true
+        mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        mapView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        
+        // 地图类型为标准
+        mapView.mapType = MKMapType.standard
+        // 精度
+        let latitudeDelta = 0.05
+        let longitudDelda = 0.05
+        let currentLocationSpan = MKCoordinateSpanMake(latitudeDelta, longitudDelda)
+        // 定义地图中心坐标
+        let center = locationManager.location?.coordinate
+        // 定义地图当前位置
+        let currentReigon = MKCoordinateRegion(center: center!, span: currentLocationSpan)
+        // 显示区域
+        mapView.setRegion(currentReigon, animated: true)
+        //
+        let objAnnotation = MKPointAnnotation()
+        
+        objAnnotation.coordinate = CLLocation(latitude: latitudeDelta, longitude: longitudDelda).coordinate
+        objAnnotation.title = "目测是在这里"
+        objAnnotation.subtitle = "详情请访问高德地图"
+        mapView.addAnnotation(objAnnotation)
     }
+    
+    
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -109,7 +149,6 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }
 
