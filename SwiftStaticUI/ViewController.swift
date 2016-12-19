@@ -20,7 +20,6 @@ class ViewController: UIViewController {
         let mainScrollView = UIScrollView()
         mainScrollView.contentSize = CGSize(width: 0, height: 1000)
         
-        mainScrollView.backgroundColor = UIColor.lightGray
         mainScrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mainScrollView)
         
@@ -40,7 +39,6 @@ class ViewController: UIViewController {
         headeImageView.image = UIImage.init(named: "head")
         
         let descriptionView = UIView()
-        descriptionView.backgroundColor = UIColor.yellow
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
         mainScrollView.addSubview(descriptionView)
         
@@ -51,14 +49,13 @@ class ViewController: UIViewController {
         
         let titleLabel = UILabel()
         titleLabel.text = "h and I"
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 15)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.backgroundColor = UIColor.red
         descriptionView.addSubview(titleLabel)
         
         titleLabel.topAnchor.constraint(equalTo: descriptionView.topAnchor).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: descriptionView.leadingAnchor).isActive = true
-        titleLabel.widthAnchor.constraint(equalTo: descriptionView.widthAnchor, multiplier: 0.5).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: descriptionView.trailingAnchor).isActive = true
         titleLabel.heightAnchor.constraint(equalTo: descriptionView.heightAnchor, multiplier: 0.5).isActive = true
         
         let addressLabel = UILabel()
@@ -82,6 +79,22 @@ class ViewController: UIViewController {
         availabelLabel.leadingAnchor.constraint(equalTo: descriptionView.leadingAnchor).isActive = true
         availabelLabel.trailingAnchor.constraint(equalTo: descriptionView.trailingAnchor).isActive = true
         availabelLabel.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor).isActive = true
+        
+        let viewButton = UIButton(type: UIButtonType.custom)
+        viewButton.setTitle("View Pricelist", for: UIControlState.normal)
+        viewButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        viewButton.setTitleColor(UIColor.blue, for: UIControlState.normal)
+        viewButton.layer.borderColor = UIColor.blue.cgColor
+        viewButton.layer.borderWidth = 1.0
+        viewButton.layer.cornerRadius = 2.0
+        viewButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        mainScrollView.addSubview(viewButton)
+        
+        viewButton.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor).isActive = true
+        viewButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        viewButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        viewButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
     }
 
     override func didReceiveMemoryWarning() {
