@@ -23,10 +23,10 @@ class ViewController: UIViewController {
         mainScrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mainScrollView)
         
-        mainScrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        mainScrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
         mainScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         mainScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        mainScrollView.heightAnchor.constraint(equalToConstant: 400).isActive = true
+        mainScrollView.heightAnchor.constraint(equalToConstant: view.frame.size.height / 2.0).isActive = true
         
         let headeImageView = UIImageView()
         headeImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -90,13 +90,21 @@ class ViewController: UIViewController {
         viewButton.translatesAutoresizingMaskIntoConstraints = false
         
         mainScrollView.addSubview(viewButton)
-        
-        viewButton.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor).isActive = true
-        viewButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {
+            viewButton.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor).isActive = true
+            viewButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        } else {
+            viewButton.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: 20).isActive = true
+            viewButton.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20).isActive = true
+        }
         viewButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
         viewButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
