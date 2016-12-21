@@ -54,7 +54,6 @@ class ViewController: UIViewController {
         mainScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         mainScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
-        
         headeImageView.translatesAutoresizingMaskIntoConstraints = false
         mainScrollView.addSubview(headeImageView)
         // header
@@ -117,12 +116,15 @@ class ViewController: UIViewController {
         viewButton.translatesAutoresizingMaskIntoConstraints = false
         mainScrollView.addSubview(viewButton)
 
+        // 根据不同的屏幕添加两套约束方案到约束数组中
         compactConstraints.append(viewButton.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor))
         compactConstraints.append(viewButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20))
-        
-        
         regularConstraints.append(viewButton.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: 20))
         regularConstraints.append(viewButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20))
+        
+        
+        
+        
         
         mapView.delegate = self
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -148,21 +150,19 @@ class ViewController: UIViewController {
         mapView.setRegion(currentReigon, animated: true)
     }
     
+    // 监测屏幕旋转的方法
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        
-        // 1
+        // 1.regular情形
         if traitCollection.horizontalSizeClass == .regular {
-            // 2
+            // 使compact下的约束失效
             NSLayoutConstraint.deactivate(compactConstraints)
+            // 使regular下的约束生效
             NSLayoutConstraint.activate(regularConstraints)
-            // 3
-            
         } else {
-            // 4
+            // 2.compact情形
             NSLayoutConstraint.deactivate(regularConstraints)
             NSLayoutConstraint.activate(compactConstraints)
-            
         }
     }
     
