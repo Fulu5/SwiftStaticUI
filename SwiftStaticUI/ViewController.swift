@@ -43,43 +43,7 @@ class ViewController: UIViewController {
         configMainScrollView()
     }
     
-    // 观察
-//    func handleDeviceOrientationDidChange(noti: NSNotification) {
-//        self.currentDeviceOrientation = UIDevice.current.orientation
-//        
-//        // 横屏
-//        if UIDevice.current.orientation == UIDeviceOrientation.landscapeRight || UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft {
-//            viewButton.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: 20).isActive = false
-//            viewButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = false
-//            viewButton.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: -35).isActive = true
-//            viewButton.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: -140).isActive = true
-//            viewButton.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor).isActive = true
-//            viewButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-//            
-//            
-//            
-//        } else if UIDevice.current.orientation == UIDeviceOrientation.portrait || UIDevice.current.orientation == UIDeviceOrientation.portraitUpsideDown {
-//            // 竖屏
-//            viewButton.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor).isActive = false
-//            viewButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = false
-//            viewButton.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: 20).isActive = true
-//            viewButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-//            viewButton.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: 55).isActive = true
-//            viewButton.trailingAnchor.constraint(equalTo:, constant: <#T##CGFloat#>)
-//        }
-//        // iPad
-//        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {
-//            viewButton.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor).isActive = true
-//            viewButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-//        }
-//        viewButton.setNeedsLayout()
-//    }
-
-    
     func configMainScrollView() {
-        
-        
-        
         
         mainScrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mainScrollView)
@@ -97,7 +61,7 @@ class ViewController: UIViewController {
         headeImageView.topAnchor.constraint(equalTo: mainScrollView.topAnchor).isActive = true
         headeImageView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor).isActive = true
         headeImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        headeImageView.heightAnchor.constraint(equalTo: mainScrollView.heightAnchor, multiplier: 0.3).isActive = true
+        headeImageView.heightAnchor.constraint(equalTo: headeImageView.widthAnchor, multiplier: 0.5).isActive = true
         headeImageView.image = UIImage.init(named: "head")
         
         // descrip
