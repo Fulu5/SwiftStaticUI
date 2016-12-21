@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C6120D51E0A1FA10093A529 /* StoryBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6120D31E0A1FA10093A529 /* StoryBoardVC.swift */; };
+		0C6120D61E0A1FA10093A529 /* StoryBoardVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6120D41E0A1FA10093A529 /* StoryBoardVC.xib */; };
 		0C79575C1E07FB110053CD2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79575B1E07FB110053CD2C /* AppDelegate.swift */; };
 		0C79575E1E07FB110053CD2C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79575D1E07FB110053CD2C /* ViewController.swift */; };
 		0C7957611E07FB110053CD2C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C79575F1E07FB110053CD2C /* Main.storyboard */; };
@@ -35,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C6120D31E0A1FA10093A529 /* StoryBoardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryBoardVC.swift; sourceTree = "<group>"; };
+		0C6120D41E0A1FA10093A529 /* StoryBoardVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoryBoardVC.xib; sourceTree = "<group>"; };
 		0C7957581E07FB110053CD2C /* SwiftStaticUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftStaticUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C79575B1E07FB110053CD2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C79575D1E07FB110053CD2C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +106,8 @@
 				0C79578B1E080EB30053CD2C /* head.png */,
 				0C79575B1E07FB110053CD2C /* AppDelegate.swift */,
 				0C79575D1E07FB110053CD2C /* ViewController.swift */,
+				0C6120D31E0A1FA10093A529 /* StoryBoardVC.swift */,
+				0C6120D41E0A1FA10093A529 /* StoryBoardVC.xib */,
 				0C79575F1E07FB110053CD2C /* Main.storyboard */,
 				0C7957621E07FB110053CD2C /* Assets.xcassets */,
 				0C7957641E07FB110053CD2C /* LaunchScreen.storyboard */,
@@ -238,6 +244,7 @@
 				0C79578C1E080EB30053CD2C /* head.png in Resources */,
 				0C7957661E07FB110053CD2C /* LaunchScreen.storyboard in Resources */,
 				0C7957631E07FB110053CD2C /* Assets.xcassets in Resources */,
+				0C6120D61E0A1FA10093A529 /* StoryBoardVC.xib in Resources */,
 				0C7957611E07FB110053CD2C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,6 +270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C6120D51E0A1FA10093A529 /* StoryBoardVC.swift in Sources */,
 				0C79575E1E07FB110053CD2C /* ViewController.swift in Sources */,
 				0C79575C1E07FB110053CD2C /* AppDelegate.swift in Sources */,
 			);
@@ -509,6 +517,7 @@
 				0C7957821E07FB110053CD2C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0C7957831E07FB110053CD2C /* Build configuration list for PBXNativeTarget "SwiftStaticUITests" */ = {
 			isa = XCConfigurationList;
@@ -517,6 +526,7 @@
 				0C7957851E07FB110053CD2C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0C7957861E07FB110053CD2C /* Build configuration list for PBXNativeTarget "SwiftStaticUIUITests" */ = {
 			isa = XCConfigurationList;
@@ -525,6 +535,7 @@
 				0C7957881E07FB110053CD2C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

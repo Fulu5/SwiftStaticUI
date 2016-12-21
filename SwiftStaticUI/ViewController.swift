@@ -10,11 +10,22 @@ import UIKit
 import MapKit
 import CoreLocation
 
+enum DeviceOrientation : Int {
+    case unknown
+    case portrait
+    case portraitUpsideDown
+    case landscapeLeft
+    case landscapeRight
+    case faceUp
+    case faceDown
+}
+
 class ViewController: UIViewController {
     
     let locationManager = CLLocationManager()
     var mapView = MKMapView()
     
+    var currentDeviceOrientation: UIDeviceOrientation = .unknown
     
     let mainScrollView = UIScrollView()
     let headeImageView = UIImageView()
@@ -22,21 +33,53 @@ class ViewController: UIViewController {
     let titleLabel = UILabel()
     let addressLabel = UILabel()
     let availabelLabel = UILabel()
-    let viewButton = UIButton(type: UIButtonType.custom)
+    let viewButton = UIButton(type: UIButtonType.system)
     
+    fileprivate var regularConstraints = [NSLayoutConstraint]()
+    fileprivate var compactConstraints = [NSLayoutConstraint]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configMainScrollView()
-        
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
+    // 观察
+//    func handleDeviceOrientationDidChange(noti: NSNotification) {
+//        self.currentDeviceOrientation = UIDevice.current.orientation
+//        
+//        // 横屏
+//        if UIDevice.current.orientation == UIDeviceOrientation.landscapeRight || UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft {
+//            viewButton.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: 20).isActive = false
+//            viewButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = false
+//            viewButton.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: -35).isActive = true
+//            viewButton.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: -140).isActive = true
+//            viewButton.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor).isActive = true
+//            viewButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+//            
+//            
+//            
+//        } else if UIDevice.current.orientation == UIDeviceOrientation.portrait || UIDevice.current.orientation == UIDeviceOrientation.portraitUpsideDown {
+//            // 竖屏
+//            viewButton.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor).isActive = false
+//            viewButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = false
+//            viewButton.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: 20).isActive = true
+//            viewButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+//            viewButton.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: 55).isActive = true
+//            viewButton.trailingAnchor.constraint(equalTo:, constant: <#T##CGFloat#>)
+//        }
+//        // iPad
+//        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {
+//            viewButton.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor).isActive = true
+//            viewButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+//        }
+//        viewButton.setNeedsLayout()
+//    }
+
     
     func configMainScrollView() {
+        
+        
+        
         
         mainScrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mainScrollView)
@@ -54,7 +97,7 @@ class ViewController: UIViewController {
         headeImageView.topAnchor.constraint(equalTo: mainScrollView.topAnchor).isActive = true
         headeImageView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor).isActive = true
         headeImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        headeImageView.heightAnchor.constraint(equalTo: mainScrollView.heightAnchor, multiplier: 0.4).isActive = true
+        headeImageView.heightAnchor.constraint(equalTo: mainScrollView.heightAnchor, multiplier: 0.3).isActive = true
         headeImageView.image = UIImage.init(named: "head")
         
         // descrip
@@ -100,6 +143,7 @@ class ViewController: UIViewController {
         availabelLabel.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor).isActive = true
         
         // button
+        viewButton.addTarget(self, action: #selector(NextPageAction), for: UIControlEvents.touchUpInside)
         viewButton.setTitle("View Pricelist", for: UIControlState.normal)
         viewButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         viewButton.setTitleColor(UIColor.blue, for: UIControlState.normal)
@@ -107,20 +151,14 @@ class ViewController: UIViewController {
         viewButton.layer.borderWidth = 1.0
         viewButton.layer.cornerRadius = 2.0
         viewButton.translatesAutoresizingMaskIntoConstraints = false
-        
         mainScrollView.addSubview(viewButton)
-        // 当前判断仅满足竖屏下, 6p和7p在横屏下为ipad模式
-        // sizeclass
-        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {
-            viewButton.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor).isActive = true
-            viewButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        } else {
-            viewButton.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: 20).isActive = true
-            viewButton.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20).isActive = true
-        }
-        viewButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
-        viewButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
+
+        compactConstraints.append(viewButton.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor))
+        compactConstraints.append(viewButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20))
         
+        
+        regularConstraints.append(viewButton.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: 20))
+        regularConstraints.append(viewButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20))
         
         mapView.delegate = self
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -129,7 +167,7 @@ class ViewController: UIViewController {
         mapView.topAnchor.constraint(equalTo: viewButton.bottomAnchor, constant: 20).isActive = true
         mapView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20).isActive = true
         mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        mapView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        mapView.heightAnchor.constraint(equalToConstant: 500).isActive = true
         mapView.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor, constant: -20).isActive = true
         
         // 地图类型为标准
@@ -146,14 +184,37 @@ class ViewController: UIViewController {
         mapView.setRegion(currentReigon, animated: true)
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        // 1
+        if traitCollection.horizontalSizeClass == .regular {
+            // 2
+            NSLayoutConstraint.deactivate(compactConstraints)
+            NSLayoutConstraint.activate(regularConstraints)
+            // 3
+            
+        } else {
+            // 4
+            NSLayoutConstraint.deactivate(regularConstraints)
+            NSLayoutConstraint.activate(compactConstraints)
+            
+        }
+    }
+    
+    func NextPageAction() {
+        let nextPage = StoryBoardVC(nibName: "StoryBoardVC", bundle: Bundle.main)
+        show(nextPage, sender: nil)
+    }
+    
     let regionRadius: CLLocationDistance = 1000
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
-                                                                  regionRadius * 2.0, regionRadius * 2.0)
+                                                                  regionRadius * 2.0,
+                                                                  regionRadius * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
         
     }
-    
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
