@@ -7,25 +7,9 @@
 //
 
 import UIKit
-import MapKit
-import CoreLocation
-
-enum DeviceOrientation : Int {
-    case unknown
-    case portrait
-    case portraitUpsideDown
-    case landscapeLeft
-    case landscapeRight
-    case faceUp
-    case faceDown
-}
 
 class ViewController: UIViewController {
     
-    let locationManager = CLLocationManager()
-    var mapView = MKMapView()
-    
-    var currentDeviceOrientation: UIDeviceOrientation = .unknown
     
     let mainScrollView = UIScrollView()
     let headeImageView = UIImageView()
@@ -34,7 +18,13 @@ class ViewController: UIViewController {
     let addressLabel = UILabel()
     let availabelLabel = UILabel()
     let viewButton = UIButton(type: UIButtonType.system)
+    let leftStackView = UIStackView()
+    let rightStackView = UIStackView()
+    let viewModel = ViewModel()
+    var imageSize = CGSize()
     
+    // sizeClass相关
+    var currentDeviceOrientation: UIDeviceOrientation = .unknown
     fileprivate var regularConstraints = [NSLayoutConstraint]()
     fileprivate var compactConstraints = [NSLayoutConstraint]()
     
@@ -49,65 +39,49 @@ class ViewController: UIViewController {
         view.addSubview(mainScrollView)
         // scrollView的contentSize由内部元素的高度决定
         // 相当于frame
-        mainScrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
         mainScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        mainScrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
         mainScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         mainScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
+        // imageView
         headeImageView.translatesAutoresizingMaskIntoConstraints = false
         mainScrollView.addSubview(headeImageView)
-        // header
-        headeImageView.topAnchor.constraint(equalTo: mainScrollView.topAnchor).isActive = true
-        headeImageView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor).isActive = true
-        headeImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        headeImageView.heightAnchor.constraint(equalTo: headeImageView.widthAnchor, multiplier: 0.5).isActive = true
-        headeImageView.image = UIImage.init(named: "head")
+        let image = UIImage.init(named: viewModel.imageName)
+        imageSize = image!.size
         
-        // descrip
+        headeImageView.image = image
+        
+        headeImageView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor).isActive = true
+        headeImageView.topAnchor.constraint(equalTo: mainScrollView.topAnchor).isActive = true
+        headeImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        headeImageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: imageSize.height / imageSize.width).isActive = true
+        
+        // 原图比例
+        // descripView
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
         mainScrollView.addSubview(descriptionView)
-        
         descriptionView.topAnchor.constraint(equalTo: headeImageView.bottomAnchor, constant: 20).isActive = true
         descriptionView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20).isActive = true
-        descriptionView.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor, multiplier: 0.5).isActive = true
-        descriptionView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
-        // label_1
-        titleLabel.text = "h and I"
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionView.addSubview(titleLabel)
+        let compactDescripTrail = descriptionView.trailingAnchor.constraint(equalTo: viewButton.leadingAnchor, constant: -20)
+        let regularDesCripTrail = descriptionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         
-        titleLabel.topAnchor.constraint(equalTo: descriptionView.topAnchor).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: descriptionView.leadingAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: descriptionView.trailingAnchor).isActive = true
-        titleLabel.heightAnchor.constraint(equalTo: descriptionView.heightAnchor, multiplier: 0.5).isActive = true
+        // label
+        addressLabel.text = viewModel.address
+        addressLabel.numberOfLines = 0
         
-        // label_2
-        addressLabel.text = "17,MITCHAM, VIC, 3132, AU"
         addressLabel.font = UIFont.systemFont(ofSize: 12)
         addressLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         descriptionView.addSubview(addressLabel)
-        addressLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
+        
+        addressLabel.topAnchor.constraint(equalTo: descriptionView.topAnchor).isActive = true
         addressLabel.leadingAnchor.constraint(equalTo: descriptionView.leadingAnchor).isActive = true
         addressLabel.trailingAnchor.constraint(equalTo: descriptionView.trailingAnchor).isActive = true
-        addressLabel.heightAnchor.constraint(equalTo: descriptionView.heightAnchor, multiplier: 0.25).isActive = true
-        
-        // label_3
-        availabelLabel.text = "Properties Available: 1/1"
-        availabelLabel.font = UIFont.systemFont(ofSize: 12)
-        availabelLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        descriptionView.addSubview(availabelLabel)
-        availabelLabel.topAnchor.constraint(equalTo: addressLabel.bottomAnchor).isActive = true
-        availabelLabel.leadingAnchor.constraint(equalTo: descriptionView.leadingAnchor).isActive = true
-        availabelLabel.trailingAnchor.constraint(equalTo: descriptionView.trailingAnchor).isActive = true
-        availabelLabel.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor).isActive = true
+        addressLabel.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor).isActive = true
         
         // button
-        viewButton.addTarget(self, action: #selector(NextPageAction), for: UIControlEvents.touchUpInside)
-        viewButton.setTitle("View Pricelist", for: UIControlState.normal)
+        viewButton.setTitle(viewModel.buttonTitle, for: UIControlState.normal)
         viewButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         viewButton.setTitleColor(UIColor.blue, for: UIControlState.normal)
         viewButton.layer.borderColor = UIColor.blue.cgColor
@@ -116,43 +90,68 @@ class ViewController: UIViewController {
         viewButton.translatesAutoresizingMaskIntoConstraints = false
         mainScrollView.addSubview(viewButton)
 
-        // 根据不同的屏幕添加两套约束方案到约束数组中
-        compactConstraints.append(viewButton.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor))
-        compactConstraints.append(viewButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20))
-        regularConstraints.append(viewButton.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: 20))
-        regularConstraints.append(viewButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20))
+        viewButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        viewButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        let viewButtonLeading = viewButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
+        let viewButtonTop = viewButton.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: 20)
+        let viewButtonTrail = viewButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        let viewButtonBottom = viewButton.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor)
         
-        
-        
-        
-        
-        mapView.delegate = self
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        mainScrollView.addSubview(mapView)
+        if viewModel.stackViewContent.count > 0 {
+            addStackView()
+        } else {
+            viewButton.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor, constant: -20).isActive = true
+        }
 
-        mapView.topAnchor.constraint(equalTo: viewButton.bottomAnchor, constant: 20).isActive = true
-        mapView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20).isActive = true
-        mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        mapView.heightAnchor.constraint(equalToConstant: 500).isActive = true
-        mapView.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor, constant: -20).isActive = true
+        // 根据不同的屏幕添加两套约束方案到约束数组中
+        compactConstraints.append(viewButtonBottom)
+        compactConstraints.append(viewButtonTrail)
+        compactConstraints.append(compactDescripTrail)
         
-        // 地图类型为标准
-        mapView.mapType = MKMapType.standard
-        // 精度
-        let latitudeDelta = 0.05
-        let longitudDelda = 0.05
-        let currentLocationSpan = MKCoordinateSpanMake(latitudeDelta, longitudDelda)
-        // 定义地图中心坐标
-        let center = locationManager.location?.coordinate
-        // 定义地图当前位置
-        let currentReigon = MKCoordinateRegion(center: center!, span: currentLocationSpan)
-        // 显示区域
-        mapView.setRegion(currentReigon, animated: true)
+        regularConstraints.append(viewButtonTop)
+        regularConstraints.append(viewButtonLeading)
+        regularConstraints.append(regularDesCripTrail)
+        }
+    
+    // 添加stackView
+    func addStackView() {
+
+        leftStackView.translatesAutoresizingMaskIntoConstraints = false
+        rightStackView.translatesAutoresizingMaskIntoConstraints = false
+        leftStackView.axis = .vertical
+        rightStackView.axis = .vertical
+        leftStackView.alignment = .leading
+        rightStackView.alignment = .leading
+        leftStackView.distribution = .equalSpacing
+        rightStackView.distribution = .equalSpacing
+        mainScrollView.addSubview(leftStackView)
+        mainScrollView.addSubview(rightStackView)
+        
+        leftStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        leftStackView.topAnchor.constraint(equalTo: viewButton.bottomAnchor, constant: 20).isActive = true
+        leftStackView.trailingAnchor.constraint(equalTo: rightStackView.leadingAnchor).isActive = true
+        leftStackView.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor, constant: -20).isActive = true
+        leftStackView.widthAnchor.constraint(equalTo: rightStackView.widthAnchor).isActive = true
+        rightStackView.leadingAnchor.constraint(equalTo: leftStackView.trailingAnchor).isActive = true
+        rightStackView.topAnchor.constraint(equalTo: leftStackView.topAnchor).isActive = true
+        rightStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        rightStackView.bottomAnchor.constraint(equalTo: leftStackView.bottomAnchor).isActive = true
+
+        for (key, value) in viewModel.stackViewContent {
+            let leftLabel = UILabel()
+            leftLabel.text = key
+            let rigthLabel = UILabel()
+            rigthLabel.text = value
+            leftStackView.addArrangedSubview(leftLabel)
+            rightStackView.addArrangedSubview(rigthLabel)
+        }
     }
     
     // 监测屏幕旋转的方法
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        
+        
         // 1.regular情形
         if traitCollection.horizontalSizeClass == .regular {
             // 使compact下的约束失效
@@ -166,20 +165,6 @@ class ViewController: UIViewController {
         }
     }
     
-    func NextPageAction() {
-        let nextPage = StoryBoardVC(nibName: "StoryBoardVC", bundle: Bundle.main)
-        show(nextPage, sender: nil)
-    }
-    
-    let regionRadius: CLLocationDistance = 1000
-    func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
-                                                                  regionRadius * 2.0,
-                                                                  regionRadius * 2.0)
-        mapView.setRegion(coordinateRegion, animated: true)
-        
-    }
-
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
@@ -190,20 +175,3 @@ class ViewController: UIViewController {
     }
 
 }
-
-extension ViewController: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        var view: MKPinAnnotationView
-        if let dequeView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin") as? MKPinAnnotationView {
-            dequeView.annotation = annotation
-            view = dequeView
-        } else {
-            view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
-            view.canShowCallout = true
-            view.calloutOffset = CGPoint(x: -5, y: -5)
-            view.rightCalloutAccessoryView = UIButton(type: UIButtonType.detailDisclosure)
-        }
-        return view
-    }
-}
-
