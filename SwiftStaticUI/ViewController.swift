@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     
     
     let mainScrollView = UIScrollView()
-    let headeImageView = UIImageView()
+    
     let descriptionView = UIView()
     let titleLabel = UILabel()
     let addressLabel = UILabel()
@@ -22,6 +22,9 @@ class ViewController: UIViewController {
     let rightStackView = UIStackView()
     let viewModel = ViewModel()
     var imageSize = CGSize()
+    
+    
+    var headImageView: HeadView!
     
     // sizeClass相关
     var currentDeviceOrientation: UIDeviceOrientation = .unknown
@@ -35,32 +38,27 @@ class ViewController: UIViewController {
     
     func configMainScrollView() {
         
-        mainScrollView.translatesAutoresizingMaskIntoConstraints = false
+        
         view.addSubview(mainScrollView)
-        // scrollView的contentSize由内部元素的高度决定
-        // 相当于frame
-        mainScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        mainScrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
-        mainScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        mainScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
-        // imageView
-        headeImageView.translatesAutoresizingMaskIntoConstraints = false
-        mainScrollView.addSubview(headeImageView)
-        let image = UIImage.init(named: viewModel.imageName)
-        imageSize = image!.size
-        headeImageView.image = image
         
-        headeImageView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor).isActive = true
-        headeImageView.topAnchor.constraint(equalTo: mainScrollView.topAnchor).isActive = true
-        headeImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        headeImageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: imageSize.height / imageSize.width).isActive = true
         
-        // 原图比例
+        headImageView = HeadView(image: UIImage(named: viewModel.imageName))
+        
+        
+        
+        mainScrollView.addSubview(headImageView)
+        
+        
+        
+        makeConstraints()
+        
+        
+        
         // descripView
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
         mainScrollView.addSubview(descriptionView)
-        descriptionView.topAnchor.constraint(equalTo: headeImageView.bottomAnchor, constant: 20).isActive = true
+        descriptionView.topAnchor.constraint(equalTo: headImageView.bottomAnchor, constant: 20).isActive = true
         descriptionView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20).isActive = true
         
         let compactDescripTrail = descriptionView.trailingAnchor.constraint(equalTo: viewButton.leadingAnchor, constant: -20)
@@ -144,6 +142,25 @@ class ViewController: UIViewController {
             leftStackView.addArrangedSubview(leftLabel)
             rightStackView.addArrangedSubview(rigthLabel)
         }
+        
+    }
+    
+    
+    private func makeConstraints() {
+        // scrollView
+        // scrollView的contentSize由内部元素的高度决定
+        mainScrollView.translatesAutoresizingMaskIntoConstraints = false
+        mainScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        mainScrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        mainScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        mainScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        // imageView
+        headImageView.translatesAutoresizingMaskIntoConstraints = false
+        headImageView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor).isActive = true
+        headImageView.topAnchor.constraint(equalTo: mainScrollView.topAnchor).isActive = true
+        headImageView.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor).isActive = true
+        headImageView.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor).isActive = true
+        headImageView.heightAnchor.constraint(equalTo: mainScrollView.widthAnchor, multiplier: headImageView.ratio).isActive = true
     }
     
     // 监测屏幕旋转的方法
