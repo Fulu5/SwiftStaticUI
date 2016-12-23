@@ -35,7 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0C6121111E0AA8B10093A529 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewModel.swift; path = ../ViewModel.swift; sourceTree = "<group>"; };
+		0C6121111E0AA8B10093A529 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewModel.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		0C7957581E07FB110053CD2C /* SwiftStaticUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftStaticUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C79575B1E07FB110053CD2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C79575D1E07FB110053CD2C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -79,12 +79,13 @@
 		0C6121131E0AA8BA0093A529 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				0C79575F1E07FB110053CD2C /* Main.storyboard */,
 				0C7957621E07FB110053CD2C /* Assets.xcassets */,
-				0C7957641E07FB110053CD2C /* LaunchScreen.storyboard */,
 				0C7957671E07FB110053CD2C /* Info.plist */,
+				0C7957641E07FB110053CD2C /* LaunchScreen.storyboard */,
+				0C79575F1E07FB110053CD2C /* Main.storyboard */,
 			);
 			name = Support;
+			path = Support;
 			sourceTree = "<group>";
 		};
 		0C6121141E0AA8C30093A529 /* ViewModel */ = {
@@ -93,15 +94,16 @@
 				0C6121111E0AA8B10093A529 /* ViewModel.swift */,
 			);
 			name = ViewModel;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		0C79574F1E07FB110053CD2C = {
 			isa = PBXGroup;
 			children = (
+				0C7957591E07FB110053CD2C /* Products */,
 				0C79575A1E07FB110053CD2C /* SwiftStaticUI */,
 				0C79576F1E07FB110053CD2C /* SwiftStaticUITests */,
 				0C79577A1E07FB110053CD2C /* SwiftStaticUIUITests */,
-				0C7957591E07FB110053CD2C /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,10 +120,10 @@
 		0C79575A1E07FB110053CD2C /* SwiftStaticUI */ = {
 			isa = PBXGroup;
 			children = (
+				0C6121131E0AA8BA0093A529 /* Support */,
+				0C6121141E0AA8C30093A529 /* ViewModel */,
 				0C79575B1E07FB110053CD2C /* AppDelegate.swift */,
 				0C79575D1E07FB110053CD2C /* ViewController.swift */,
-				0C6121141E0AA8C30093A529 /* ViewModel */,
-				0C6121131E0AA8BA0093A529 /* Support */,
 			);
 			path = SwiftStaticUI;
 			sourceTree = "<group>";
@@ -129,8 +131,8 @@
 		0C79576F1E07FB110053CD2C /* SwiftStaticUITests */ = {
 			isa = PBXGroup;
 			children = (
-				0C7957701E07FB110053CD2C /* SwiftStaticUITests.swift */,
 				0C7957721E07FB110053CD2C /* Info.plist */,
+				0C7957701E07FB110053CD2C /* SwiftStaticUITests.swift */,
 			);
 			path = SwiftStaticUITests;
 			sourceTree = "<group>";
@@ -138,8 +140,8 @@
 		0C79577A1E07FB110053CD2C /* SwiftStaticUIUITests */ = {
 			isa = PBXGroup;
 			children = (
-				0C79577B1E07FB110053CD2C /* SwiftStaticUIUITests.swift */,
 				0C79577D1E07FB110053CD2C /* Info.plist */,
+				0C79577B1E07FB110053CD2C /* SwiftStaticUIUITests.swift */,
 			);
 			path = SwiftStaticUIUITests;
 			sourceTree = "<group>";
@@ -322,6 +324,7 @@
 				0C7957601E07FB110053CD2C /* Base */,
 			);
 			name = Main.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 		0C7957641E07FB110053CD2C /* LaunchScreen.storyboard */ = {
@@ -330,6 +333,7 @@
 				0C7957651E07FB110053CD2C /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -432,7 +436,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = SwiftStaticUI/Info.plist;
+				INFOPLIST_FILE = SwiftStaticUI/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gxcao.SwiftStaticUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -444,7 +448,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = SwiftStaticUI/Info.plist;
+				INFOPLIST_FILE = SwiftStaticUI/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gxcao.SwiftStaticUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
