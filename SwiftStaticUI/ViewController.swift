@@ -49,7 +49,6 @@ class ViewController: UIViewController {
         mainScrollView.addSubview(headeImageView)
         let image = UIImage.init(named: viewModel.imageName)
         imageSize = image!.size
-        
         headeImageView.image = image
         
         headeImageView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor).isActive = true
