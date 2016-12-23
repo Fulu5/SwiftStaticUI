@@ -35,7 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0C6121111E0AA8B10093A529 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewModel.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		0C6121111E0AA8B10093A529 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		0C7957581E07FB110053CD2C /* SwiftStaticUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftStaticUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C79575B1E07FB110053CD2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C79575D1E07FB110053CD2C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -84,7 +84,6 @@
 				0C7957641E07FB110053CD2C /* LaunchScreen.storyboard */,
 				0C79575F1E07FB110053CD2C /* Main.storyboard */,
 			);
-			name = Support;
 			path = Support;
 			sourceTree = "<group>";
 		};
@@ -93,7 +92,6 @@
 			children = (
 				0C6121111E0AA8B10093A529 /* ViewModel.swift */,
 			);
-			name = ViewModel;
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
