@@ -8,14 +8,24 @@
 
 import UIKit
 
-class LabelsStackView: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+class LabelsStackView: UIStackView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        axis = .vertical
+        distribution = .equalSpacing
+        spacing = 5
     }
-    */
-
+    
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setValueForSubViews(viewModel: ViewModel) {
+        for item in viewModel.stackViewContent {
+            let labelsView = LabelsView()
+            labelsView.setValueForSubViews(item: item)
+            addArrangedSubview(labelsView)
+        }
+    }
 }
