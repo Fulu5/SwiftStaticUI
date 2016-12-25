@@ -92,7 +92,6 @@
 				0C36838B1E0D181D00B7924D /* LabelsStackView.swift */,
 				0C3683891E0D180100B7924D /* LabelsView.swift */,
 			);
-			name = Views;
 			path = Views;
 			sourceTree = "<group>";
 		};
