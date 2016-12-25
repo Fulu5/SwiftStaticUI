@@ -17,28 +17,27 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // model
         let viewModel = ViewModel()
-        
+        // 容器视图
         mainScrollView = UIScrollView()
         view.addSubview(mainScrollView)
-        
+        // 内部元素视图
         headImageView = HeadView(image: UIImage(named: viewModel.imageName))
         infoView = InfoView()
         labelsStack = LabelsStackView()
-        
+        // 赋值
         infoView.setValueForSubViews(viewModel: viewModel)
         labelsStack.setValueForSubViews(viewModel: viewModel)
-        
+        // 添加到容器视图中
         mainScrollView.addSubview(headImageView)
         mainScrollView.addSubview(infoView)
         mainScrollView.addSubview(labelsStack)
-        
+        // 添加约束
         makeConstraints()
     }
     
     func makeConstraints() {
-        // scrollView
         // scrollView的contentSize由内部元素的高度决定
         mainScrollView.translatesAutoresizingMaskIntoConstraints = false
         mainScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true

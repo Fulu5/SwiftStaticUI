@@ -95,6 +95,16 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		0C36838E1E1011C600B7924D /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				0C79575B1E07FB110053CD2C /* AppDelegate.swift */,
+				0C79575D1E07FB110053CD2C /* ViewController.swift */,
+			);
+			name = Main;
+			path = Main;
+			sourceTree = "<group>";
+		};
 		0C6121131E0AA8BA0093A529 /* Support */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,11 +147,10 @@
 		0C79575A1E07FB110053CD2C /* SwiftStaticUI */ = {
 			isa = PBXGroup;
 			children = (
+				0C36838E1E1011C600B7924D /* Main */,
 				0C6121131E0AA8BA0093A529 /* Support */,
 				0C6121141E0AA8C30093A529 /* ViewModel */,
 				0C36838D1E0D182600B7924D /* Views */,
-				0C79575B1E07FB110053CD2C /* AppDelegate.swift */,
-				0C79575D1E07FB110053CD2C /* ViewController.swift */,
 			);
 			path = SwiftStaticUI;
 			sourceTree = "<group>";
