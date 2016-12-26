@@ -40,6 +40,7 @@ class InfoView: UIView {
         viewButton.setTitle(viewModel.buttonTitle, for: .normal)
     }
     
+    // 监测屏幕旋转
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
@@ -66,7 +67,6 @@ class InfoView: UIView {
         
         compactConstraints.append(nameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor))
         compactConstraints.append(addressLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor))
-        compactConstraints.append(viewButton.leadingAnchor.constraint(equalTo: self.leadingAnchor))
         compactConstraints.append(viewButton.leadingAnchor.constraint(equalTo: self.leadingAnchor))
         compactConstraints.append(viewButton.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 20))
         compactConstraints.append(viewButton.bottomAnchor.constraint(equalTo: self.bottomAnchor))
