@@ -10,63 +10,90 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var mainScrollView: UIScrollView!
-    var headImageView: HeadView!
-    var infoView: InfoView!
-    var labelsStack: LabelsStackView!
+    let mainScrollView = UIScrollView()
+    var headImageView: UIImageView!
+    var infoView = InfoView()
+    var labelsStack = LabelsStackView()
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // model
-        let viewModel = ViewModel()
-        // 容器视图
-        mainScrollView = UIScrollView()
-        view.addSubview(mainScrollView)
-        // 内部元素视图
+        
+        fetchData() {
+            [weak self] viewModel in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.configSubViewsWith(viewModel)
+            strongSelf.addSubViews()
+            strongSelf.setupSubViewsConstraints()
+        }
+    }
+    private func fetchData(completion: ((_ viewModel: ViewModel) -> Void)) {
+        completion(ViewModel())
+    }
+    private func configSubViewsWith(_ viewModel: ViewModel) {
+        
         headImageView = HeadView(image: UIImage(named: viewModel.imageName))
-        infoView = InfoView()
-        labelsStack = LabelsStackView()
-        // 赋值
-        infoView.setValueForSubViews(viewModel: viewModel)
-        labelsStack.setValueForSubViews(viewModel: viewModel)
-        // 添加到容器视图中
+        infoView.configSubViewsWith(viewModel: viewModel)
+        labelsStack.configSubViewsWith(viewModel: viewModel)
+    }
+    
+    private func addSubViews() {
+        
+        view.addSubview(mainScrollView)
         mainScrollView.addSubview(headImageView)
         mainScrollView.addSubview(infoView)
         mainScrollView.addSubview(labelsStack)
-        // 添加约束
-        makeConstraints()
+
+    }
+    private func setupSubViewsConstraints() {
+        
+        setupMainScrollViewConstraints()
+        setupHeadImageViewConstraints()
+        setupInfoViewConstraints()
+        setupLabelsStackView()
     }
     
-    func makeConstraints() {
-        // scrollView的contentSize由内部元素的高度决定
+    private func setupMainScrollViewConstraints() {
         mainScrollView.translatesAutoresizingMaskIntoConstraints = false
         mainScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         mainScrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
         mainScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         mainScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        // imageView
+    }
+    private func setupHeadImageViewConstraints() {
         headImageView.translatesAutoresizingMaskIntoConstraints = false
         headImageView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor).isActive = true
         headImageView.topAnchor.constraint(equalTo: mainScrollView.topAnchor).isActive = true
         headImageView.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor).isActive = true
         headImageView.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor).isActive = true
         headImageView.heightAnchor.constraint(equalTo: mainScrollView.widthAnchor, multiplier: headImageView.ratio).isActive = true
-        // infoView
+    }
+    
+    private func setupInfoViewConstraints() {
         infoView.translatesAutoresizingMaskIntoConstraints = false
         infoView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20).isActive = true
         infoView.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor, constant: -20).isActive = true
         infoView.topAnchor.constraint(equalTo: headImageView.bottomAnchor, constant: 20).isActive = true
-        // stackView
+    }
+    private func setupLabelsStackView() {
         labelsStack.translatesAutoresizingMaskIntoConstraints = false
         labelsStack.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20).isActive = true
         labelsStack.topAnchor.constraint(equalTo: infoView.bottomAnchor, constant: 20).isActive = true
         labelsStack.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor, constant: -20).isActive = true
-        // 最底部的元素需要设定其与mainScrollView底部的约束
-        // 以此来撑大scrollView的contentSize
         labelsStack.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor).isActive = true
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return UIStatusBarStyle.lightContent
+}
+
+extension UIImageView {
+    fileprivate var ratio: CGFloat {
+        guard let image = image else {
+            return 1.0
+        }
+        return image.size.height / image.size.width
     }
 }

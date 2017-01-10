@@ -9,38 +9,25 @@
 import UIKit
 
 class InfoView: UIView {
-    var nameLabel: UILabel!
-    var addressLabel: UILabel!
-    var viewButton: UIButton!
+    
+    var nameLabel = UILabel()
+    var addressLabel = UILabel()
+    var viewButton = UIButton()
     
     var compactConstraints = [NSLayoutConstraint]()
     var regularConstraints = [NSLayoutConstraint]()
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        nameLabel = createNameLabel()
-        addressLabel = createAddressLabel()
-        viewButton = createDetailButton()
-        
-        addSubview(nameLabel)
-        addSubview(addressLabel)
-        addSubview(viewButton)
-        
+        setupSubViews()
+        addAllSubViews()
         setUpConstraints()
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setValueForSubViews(viewModel: ViewModel) {
-        nameLabel.text = viewModel.name
-        addressLabel.text = viewModel.address
-        viewButton.setTitle(viewModel.buttonTitle, for: .normal)
-    }
-    
-    // 监测屏幕旋转
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
@@ -52,54 +39,74 @@ class InfoView: UIView {
             NSLayoutConstraint.activate(regularConstraints)
         }
     }
+    func configSubViewsWith(viewModel: ViewModel) {
+        nameLabel.text = viewModel.name
+        addressLabel.text = viewModel.address
+        viewButton.setTitle(viewModel.buttonTitle, for: .normal)
+    }
+    private func addAllSubViews() {
+        addSubview(nameLabel)
+        addSubview(addressLabel)
+        addSubview(viewButton)
+    }
     
-    func setUpConstraints() {
+    private func setupSubViews() {
+        setupNameLabel()
+        setupAddressLabel()
+        setupDetailButton()
+    }
+    
+    private func setUpConstraints() {
+        setupNameLabelConstraints()
+        setupAddressLabelConstraints()
+        setupViewButtonConstraints()
+        setupCompactConstraints()
+        setupRegularConstraints()
+    }
+    private func setupNameLabelConstraints() {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         nameLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        
+    }
+    private func setupAddressLabelConstraints() {
         addressLabel.translatesAutoresizingMaskIntoConstraints = false
         addressLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         addressLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10).isActive = true
-        
+    }
+    private func setupViewButtonConstraints() {
         viewButton.translatesAutoresizingMaskIntoConstraints = false
         viewButton.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        
+    }
+    private func setupCompactConstraints() {
         compactConstraints.append(nameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor))
         compactConstraints.append(addressLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor))
         compactConstraints.append(viewButton.leadingAnchor.constraint(equalTo: self.leadingAnchor))
         compactConstraints.append(viewButton.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 20))
         compactConstraints.append(viewButton.bottomAnchor.constraint(equalTo: self.bottomAnchor))
-        
+    }
+    private func setupRegularConstraints() {
         regularConstraints.append(nameLabel.trailingAnchor.constraint(equalTo: viewButton.leadingAnchor))
         regularConstraints.append(addressLabel.widthAnchor.constraint(equalTo: nameLabel.widthAnchor))
         regularConstraints.append(addressLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor))
         regularConstraints.append(viewButton.topAnchor.constraint(equalTo: self.topAnchor))
         regularConstraints.append(viewButton.widthAnchor.constraint(equalToConstant: 150))
     }
-    
-    func createNameLabel() -> UILabel {
-        let nameLabel = UILabel()
+    private func setupNameLabel() {
         nameLabel.font = UIFont.systemFont(ofSize: 20)
-        return nameLabel
     }
     
-    func createAddressLabel() -> UILabel {
-        let addressLabel = UILabel()
+    private func setupAddressLabel() {
+        addressLabel = UILabel()
         addressLabel.font = UIFont.systemFont(ofSize: 16)
         addressLabel.numberOfLines = 0
-        return addressLabel
     }
-    
-    func createDetailButton() -> UIButton {
-        let detailButton = UIButton()
-        detailButton.setTitleColor(UIColor.blue, for: .normal)
-        detailButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-        
-        detailButton.layer.borderWidth = 1.0
-        detailButton.layer.borderColor = UIColor.blue.cgColor
-        detailButton.layer.cornerRadius = 3.0
-        detailButton.contentEdgeInsets = UIEdgeInsetsMake(12.0, 20.0, 12.0, 20.0)
-        return detailButton
+    private func setupDetailButton() {
+        viewButton = UIButton()
+        viewButton.setTitleColor(UIColor.blue, for: .normal)
+        viewButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        viewButton.layer.borderWidth = 1.0
+        viewButton.layer.borderColor = UIColor.blue.cgColor
+        viewButton.layer.cornerRadius = 3.0
+        viewButton.contentEdgeInsets = UIEdgeInsetsMake(12.0, 20.0, 12.0, 20.0)
     }
 }

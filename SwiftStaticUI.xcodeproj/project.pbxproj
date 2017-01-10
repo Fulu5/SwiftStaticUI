@@ -89,8 +89,8 @@
 			children = (
 				0C3683851E0D114500B7924D /* HeadView.swift */,
 				0C3683871E0D17E200B7924D /* InfoView.swift */,
-				0C36838B1E0D181D00B7924D /* LabelsStackView.swift */,
 				0C3683891E0D180100B7924D /* LabelsView.swift */,
+				0C36838B1E0D181D00B7924D /* LabelsStackView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -101,7 +101,6 @@
 				0C79575B1E07FB110053CD2C /* AppDelegate.swift */,
 				0C79575D1E07FB110053CD2C /* ViewController.swift */,
 			);
-			name = Main;
 			path = Main;
 			sourceTree = "<group>";
 		};

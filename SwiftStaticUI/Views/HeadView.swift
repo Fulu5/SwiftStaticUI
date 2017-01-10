@@ -10,20 +10,16 @@ import UIKit
 
 class HeadView: UIImageView {
 
-    var headView: UIImageView!
-    let viewModel = ViewModel()
-    var ratio: CGFloat {
-        return self.image!.size.height / self.image!.size.width
-    }
+//    var ratio: CGFloat {
+//        return self.image!.size.height / self.image!.size.width
+//    }
     
     override init(image: UIImage?) {
         super.init(image: image)
-        self.image = image ?? UIImage(named: "dog")
-//        self.clipsToBounds = true
         contentMode = .scaleAspectFill
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
 }

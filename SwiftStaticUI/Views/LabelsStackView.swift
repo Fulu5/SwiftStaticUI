@@ -9,6 +9,7 @@
 import UIKit
 
 class LabelsStackView: UIStackView {
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -18,13 +19,14 @@ class LabelsStackView: UIStackView {
     }
     
     required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
+
     
-    func setValueForSubViews(viewModel: ViewModel) {
+    func configSubViewsWith(viewModel: ViewModel) {
         for item in viewModel.stackViewContent {
             let labelsView = LabelsView()
-            labelsView.setValueForSubViews(item: item)
+            labelsView.configSubViewsWith(item: item)
             addArrangedSubview(labelsView)
         }
     }
