@@ -37,7 +37,7 @@ class ViewController: UIViewController {
     }
     private func configSubViewsWith(_ viewModel: ViewModel) {
         
-        headImageView = HeadView(image: UIImage(named: viewModel.imageName))
+        headImageView = UIImageView(image: UIImage(named: viewModel.imageName))
         infoView.configSubViewsWith(viewModel: viewModel)
         labelsStack.configSubViewsWith(viewModel: viewModel)
     }

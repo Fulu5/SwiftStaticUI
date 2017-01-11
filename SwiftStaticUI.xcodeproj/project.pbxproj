@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C3683861E0D114500B7924D /* HeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3683851E0D114500B7924D /* HeadView.swift */; };
 		0C3683881E0D17E200B7924D /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3683871E0D17E200B7924D /* InfoView.swift */; };
 		0C36838A1E0D180100B7924D /* LabelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3683891E0D180100B7924D /* LabelsView.swift */; };
 		0C36838C1E0D181D00B7924D /* LabelsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C36838B1E0D181D00B7924D /* LabelsStackView.swift */; };
@@ -39,7 +38,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0C3683851E0D114500B7924D /* HeadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadView.swift; sourceTree = "<group>"; };
 		0C3683871E0D17E200B7924D /* InfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		0C3683891E0D180100B7924D /* LabelsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelsView.swift; sourceTree = "<group>"; };
 		0C36838B1E0D181D00B7924D /* LabelsStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelsStackView.swift; sourceTree = "<group>"; };
@@ -87,7 +85,6 @@
 		0C36838D1E0D182600B7924D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0C3683851E0D114500B7924D /* HeadView.swift */,
 				0C3683871E0D17E200B7924D /* InfoView.swift */,
 				0C3683891E0D180100B7924D /* LabelsView.swift */,
 				0C36838B1E0D181D00B7924D /* LabelsStackView.swift */,
@@ -309,7 +306,6 @@
 				0C79575E1E07FB110053CD2C /* ViewController.swift in Sources */,
 				0C36838A1E0D180100B7924D /* LabelsView.swift in Sources */,
 				0C6121121E0AA8B10093A529 /* ViewModel.swift in Sources */,
-				0C3683861E0D114500B7924D /* HeadView.swift in Sources */,
 				0C3683881E0D17E200B7924D /* InfoView.swift in Sources */,
 				0C79575C1E07FB110053CD2C /* AppDelegate.swift in Sources */,
 				0C36838C1E0D181D00B7924D /* LabelsStackView.swift in Sources */,

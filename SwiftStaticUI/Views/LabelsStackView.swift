@@ -22,7 +22,6 @@ class LabelsStackView: UIStackView {
         super.init(coder: coder)
     }
 
-    
     func configSubViewsWith(viewModel: ViewModel) {
         for item in viewModel.stackViewContent {
             let labelsView = LabelsView()
