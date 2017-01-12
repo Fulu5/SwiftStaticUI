@@ -73,7 +73,6 @@ class ViewController: UIViewController {
         headImageView.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor).isActive = true
         headImageView.heightAnchor.constraint(equalTo: mainScrollView.widthAnchor, multiplier: headImageView.ratio).isActive = true
     }
-    
     private func setupInfoViewConstraints() {
         infoView.translatesAutoresizingMaskIntoConstraints = false
         infoView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20).isActive = true
@@ -86,14 +85,5 @@ class ViewController: UIViewController {
         labelsStack.topAnchor.constraint(equalTo: infoView.bottomAnchor, constant: 20).isActive = true
         labelsStack.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor, constant: -20).isActive = true
         labelsStack.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor).isActive = true
-    }
-}
-
-extension UIImageView {
-    fileprivate var ratio: CGFloat {
-        guard let image = image else {
-            return 1.0
-        }
-        return image.size.height / image.size.width
     }
 }

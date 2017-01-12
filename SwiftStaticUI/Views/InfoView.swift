@@ -28,12 +28,14 @@ class InfoView: UIView {
         addAllSubViews()
         setUpConstraints()
     }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        
+        updateConstraints()
         if traitCollection.horizontalSizeClass == .compact {
             NSLayoutConstraint.deactivate(regularConstraints)
             NSLayoutConstraint.activate(compactConstraints)
+            
         } else {
             NSLayoutConstraint.deactivate(compactConstraints)
             NSLayoutConstraint.activate(regularConstraints)
